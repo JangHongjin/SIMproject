@@ -1,6 +1,6 @@
-package Add_On;
+package AddOnSystem;
 
-public class addon {
+public class AddOn {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
