@@ -1,19 +1,27 @@
 package ADD_ON_System;
 
+import java.util.StringTokenizer;
+
 public class MapManager {
-	private int rows, cols;
+	private String input_size = new String();
+	private int[] map_size = new int[2];
 	private Map map;
 	
+	public String getInput_size() { return input_size; }
+	public void setInput_size(String input_size) { this.input_size = input_size; }
+
 	public Map getMap() { return map; }
 	public void setMap(Map map) { this.map = map; }
-	public int getRows() { return rows; }
-	public void setRows(int rows) {	this.rows = rows; }
-	public int getCols() { return cols; }
-	public void setCols(int cols) { this.cols = cols; }
-
+	
 	public boolean Check_Input() {
-		if (this.rows <= 0 || this.cols <= 0) {
-			System.out.println("다시 입력해주세요");	// InputFrame 재입력 요구하게 만들어야
+		int i=0;
+		StringTokenizer st = new StringTokenizer(input_size, " (,)");
+
+		while(st.hasMoreTokens()) 
+			map_size[i++] = Integer.parseInt(st.nextToken());
+		
+		if (this.map_size[0] <= 0 || this.map_size[1] <= 0) {
+			System.out.println("다시 입력해주세요"); // InputFrame 재입력 요구하게 만들어야
 			return false;
 		}
 
@@ -24,9 +32,6 @@ public class MapManager {
 	}
 
 	public void Create_Map() {
-		map = new Map(this.getRows(), this.getCols());
+		map = new Map(this.map_size[0], this.map_size[1]);
 	}
-
-	
-
 }

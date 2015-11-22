@@ -1,9 +1,13 @@
 package UI_System;
 
-public class MainFrame {
-	public static void main(String[] args) {
-		// 여기서 InputFrame, MapViewer 호출
-		Call_Input_Frame();
+import javax.swing.JFrame;
+
+import ADD_ON_System.MapManager;
+
+public class MainFrame extends JFrame {
+	public static void main(String[] args) {	
+		
+		Call_Input_Frame();	// 조건에 맞게 input frame이랑 mapviewr 호출해야할
 	}
 	
 	static void Call_Input_Frame() {
