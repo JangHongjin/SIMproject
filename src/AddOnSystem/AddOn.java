@@ -108,10 +108,10 @@ public class AddOn {
            for(int i=0; i<left_target.size(); i++){
         	   int tempx=robotPath.get(robotPath.size()-1).i;
         	   int tempy=robotPath.get(robotPath.size()-1).j;
-        	   if((int) Math.pow((tempx-left_target.get(i).i),2)+ Math.pow((tempy-left_target.get(i).j),2)<temp){
-        		   temp=(int) (Math.pow((tempx-left_target.get(i).i),2)+ Math.pow((tempy-left_target.get(i).j),2));
-        		   ex=target.get(i).i;
-        		   ey=target.get(i).j;
+        	   if( Math.addExact((int)Math.pow((tempx-left_target.get(i).i),2),(int) Math.pow((tempy-left_target.get(i).j),2))<temp){
+        		   temp=Math.addExact((int)Math.pow((tempx-left_target.get(i).i),2),(int) Math.pow((tempy-left_target.get(i).j),2));
+        		   ex=left_target.get(i).i;
+        		   ey=left_target.get(i).j;
         		   
         	   }
         	   
@@ -119,7 +119,7 @@ public class AddOn {
            }
            
            for(int i=0; i<left_target.size(); i++){
-        	   System.out.println("["+left_target.get(i).i+","+left_target.get(i).j+"]");
+        	   System.out.println("[[["+left_target.get(i).i+","+left_target.get(i).j+"]]]");
            }
            System.out.println(" ");
            for(int i=0; i<target.size(); i++){
@@ -154,7 +154,7 @@ public class AddOn {
            //Set End Location
            setEndCell(ex, ey); 
 
-           System.out.println("[["+ex+","+ey+"]]");
+           System.out.println("[["+cx+","+cy+"]],[["+ex+","+ey+"]]");
            
            for(int i=0;i<x;++i){
               for(int j=0;j<y;++j){
@@ -240,7 +240,7 @@ public class AddOn {
     	robotPath.add(new Cell(4,1));
     	robotPath.add(new Cell(5,1));
     	robotPath.add(new Cell(6,1));
-    	robotPath.add(new Cell(7,1));
+
     	
     	
     	target.add(new Cell(2,2));
