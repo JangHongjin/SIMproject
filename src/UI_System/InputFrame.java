@@ -18,6 +18,7 @@ import ADD_ON_System.MapManager;
 
 class InputFrame extends JFrame implements ActionListener {
 	private MapManager MM = new MapManager();
+	private JTextField input_position;
 	private JTextField input_size;
 	private JTextField input_hazard;
 	private JTextField input_target;
@@ -38,6 +39,14 @@ class InputFrame extends JFrame implements ActionListener {
 		input_size.setHorizontalAlignment(JTextField.CENTER);
 		p_size.add(l_size);
 		p_size.add(input_size);
+		
+		JPanel p_position = new JPanel(new FlowLayout(FlowLayout.RIGHT)); this.add(p_position); 
+		JLabel l_position = new JLabel("로봇의 출발 위치를 입력해주세요");
+		input_position = new HintTextField("(n, n)");
+		input_position.setPreferredSize(new Dimension(100,25));
+		input_position.setHorizontalAlignment(JTextField.CENTER);
+		p_position.add(l_position);
+		p_position.add(input_position);
 
 		JPanel p_hazard = new JPanel(new FlowLayout(FlowLayout.RIGHT)); this.add(p_hazard);
 		JLabel l_hazard = new JLabel("위험요소 위치를 입력해주세요");
@@ -65,17 +74,17 @@ class InputFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == submit) {	// 들어온 문자열 (n, n) 파싱해서 형식 걸러내고, 값만 추출해야됨
-			
+		if (e.getSource() == submit) {	
 			MapManager.setInput_size(input_size.getText());
+			MapManager.setInput_position(input_position.getText());
 			MapManager.setInput_hazard(input_hazard.getText());
 			MapManager.setInput_target(input_target.getText());
 			
-			if (MM.Check_Input()) {
+			if (MM.Check_Input()) {	// MapManage에서 체크하고 그 결과가 true면
 				MM.Create_Map();
 				MainFrame.Call_MapViewer();
 			} else {
-				System.out.println("재입력을 요구");
+				MainFrame.Call_Input_Frame();
 			}
 		}
 	}

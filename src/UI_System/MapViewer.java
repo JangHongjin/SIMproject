@@ -16,7 +16,7 @@ public class MapViewer extends JFrame {
 		this.setResizable(false);
 		
 		JPanel view = new JPanel();
-		JButton b = new JButton("fdsdsf");
+		JButton b = new JButton("여긴 홍진이형이 만들고 있음");
 		view.add(b);
 		this.add(view);
 	}
