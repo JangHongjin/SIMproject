@@ -10,11 +10,11 @@ public class MainFrame extends JFrame {
 		Call_Input_Frame();	// 조건에 맞게 input frame이랑 mapviewr 호출해야할
 	}
 	
-	static void Call_Input_Frame() {
+	public static void Call_Input_Frame() {
 		InputFrame IF = new InputFrame();
 	}
 	
-	static void Call_MapViewer() {
+	public static void Call_MapViewer() {
 		MapViewer MV = new MapViewer();
 		
 	}

@@ -11,7 +11,7 @@ public class MapViewer extends JFrame {
 		this.setTitle("Movement of SIM");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		this.setSize(700, 700);	// 틀을 못만들겠다
+		this.setSize(300, 300);	// 틀을 못만들겠다
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		this.setResizable(false);
 		
