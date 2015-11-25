@@ -71,7 +71,7 @@ public class MapManager {
 				}
 			}
 			
-			if (map_position[0] <= 0 || map_position[1] <= 0) {	// 지도 좌표 값이 음수일 때 예외처리
+			if (map_position[0] < 0 || map_position[1] < 0) {	// 지도 좌표 값이 음수일 때 예외처리
 				System.out.println("로봇 위치값이 음수입니다");
 				return false;
 			}
@@ -160,5 +160,18 @@ public class MapManager {
 
 	public void Create_Map() {
 		this.map = new Map(map_size[0], map_size[1]);
+		map.Lacked_Map = map_hazard.clone();
+		
+/*
+		System.out.println(map_size[0] +" "+map_size[1]);
+		int i, j;
+		for(i=0; i<map_size[0]; i++) {
+			for(j=0; j<map_size[1]; j++) {
+				System.out.printf("%d ",map.Lacked_Map[i][j]);
+			}
+			System.out.println("");
+		}	
+*/
 	}
 }
+
