@@ -91,7 +91,14 @@ public class MapManager {
 				}
 			}
 
+			
 // HAZARD 입력
+/*
+  if(Target.get(i++) != null) {
+	
+ }
+ */
+			
 			for (i = 0; i < (map_size[0] * map_size[1]); i++)
 				temp[i] = -1;
 			
