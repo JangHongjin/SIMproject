@@ -1,5 +1,6 @@
 package ADD_ON_System;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -17,7 +18,9 @@ public class MapManager {
 	private static int[][] map_hazard;
 	private static int[][] map_target;
 	private static int[] temp;
-
+	
+	private static ArrayList<Cell> Target = new ArrayList<Cell>();	// SIM이 길 찾을 때 쓸 형식
+	
 	private Map map;
 
 	public static void setInput_position(String map_position) {	MapManager.input_position = map_position; }
@@ -144,6 +147,7 @@ public class MapManager {
 			i = 0; j = 1;	// 진짜 target배열에 값을 저장 
 			while (temp[i] != -1) {
 				try {
+					Target.add(new Cell(temp[i],temp[j]));
 					map_target[temp[i]][temp[j]] = 2;
 				} catch (IndexOutOfBoundsException e) {  // 예외3. hazard가 지도 범위를 벗어났을 때
 					System.out.println("target 좌표가 지도 사이즈를 벗어났습니다.");
