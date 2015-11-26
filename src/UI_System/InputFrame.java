@@ -1,5 +1,4 @@
 package UI_System;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,10 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ADD_ON_System.Map;
 import ADD_ON_System.MapManager;
 
 class InputFrame extends JFrame implements ActionListener {
 	private MapManager MM = new MapManager();
+	
 	private JTextField input_position;
 	private JTextField input_size;
 	private JTextField input_hazard;
@@ -28,7 +29,7 @@ class InputFrame extends JFrame implements ActionListener {
 		this.setTitle("InputFrame");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		this.setSize(700, 700);	// 틀을 못만들겠다
+		this.setSize(700, 700);
 		this.setLayout(new GridLayout(0,1));
 		this.setResizable(false);
 		
@@ -80,8 +81,16 @@ class InputFrame extends JFrame implements ActionListener {
 			MapManager.setInput_hazard(input_hazard.getText());
 			MapManager.setInput_target(input_target.getText());
 			
-			if (MM.Check_Input()) {	// MapManage에서 체크하고 그 결과가 true면
+			if (MM.Check_Input()) {	// MapManager에서 체크하고 그 결과가 true면
 				MM.Create_Map();
+//지도 제대로 찍히나 테스트				
+				for(int i=0; i<5; i++) {
+					for(int j=0; j<5; j++) {
+						System.out.printf("%3d", Map.Lacked_Map[i][j]);
+					}
+					System.out.println("");
+				}
+//여기까지
 				MainFrame.Call_MapViewer();
 			} else {
 				MainFrame.Call_Input_Frame();
@@ -90,6 +99,7 @@ class InputFrame extends JFrame implements ActionListener {
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
 class HintTextField extends JTextField implements FocusListener {
 	private final String hint;
 	private boolean showingHint;

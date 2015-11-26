@@ -2,6 +2,7 @@ package ADD_ON_System;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class MapManager {
@@ -16,7 +17,7 @@ public class MapManager {
 	private static int[] map_position = new int[2];
 	private static int[] map_size = new int[2];
 	private static int[][] map_hazard;
-	private static int[][] map_target;
+//	private static int[][] map_target;	//얘는 배열로 둘 필요 없음. ArrayList로 정보 전달
 	private static int[] temp;
 	
 	private static ArrayList<Cell> Target = new ArrayList<Cell>();	// SIM이 길 찾을 때 쓸 형식
@@ -27,8 +28,6 @@ public class MapManager {
 	public static void setInput_size(String input) { MapManager.input_size = input; }
 	public static void setInput_hazard(String input) { MapManager.input_hazard = input; }
 	public static void setInput_target(String input) { MapManager.input_target = input; }
-
-	public Map getMap() { return map; }
 
 // InputFrame에서 받은 값을 체크하는 함수	
 	public boolean Check_Input() {
@@ -59,9 +58,17 @@ public class MapManager {
 // 나머지 요소들도 초기화를 시작
 		else {
 			map_hazard = new int[map_size[0]][map_size[1]]; // 지도와 같은 크기의 배열을 생성
-			map_target = new int[map_size[0]][map_size[1]];
+//			map_target = new int[map_size[0]][map_size[1]];
 			temp = new int[map_size[0] * map_size[1]]; // hazard, target 좌표를 받아오기 위해 거치는 곳
-		
+
+// 지도내용 = 초기값 : -1 / hazard : 1 / colorblob : 2 / robot : 3
+			for (i = 0; i < map_size[0]; i++) {
+				for (j = 0; j < map_size[1]; j++) {
+					map_hazard[i][j] = -1;
+//					map_target[i][j] = -1;
+				}
+			}
+			
 // Position 초기화			
 			while (st_position.hasMoreTokens()) {
 				try {
@@ -83,22 +90,8 @@ public class MapManager {
 				System.out.println("로봇 위치 좌표가 지도 사이즈를 벗어났습니다.");
 				return false;
 			}
-						
-			for (i = 0; i < map_size[0]; i++) {	// 지도내용 = 초기값 : -1 / hazard : 1 / target : 2
-				for (j = 0; j < map_size[1]; j++) {
-					map_hazard[i][j] = -1;
-					map_target[i][j] = -1;
-				}
-			}
 
-			
-// HAZARD 입력
-/*
-  if(Target.get(i++) != null) {
-	
- }
- */
-			
+// HAZARD 정보 입력
 			for (i = 0; i < (map_size[0] * map_size[1]); i++)
 				temp[i] = -1;
 			
@@ -155,7 +148,7 @@ public class MapManager {
 			while (temp[i] != -1) {
 				try {
 					Target.add(new Cell(temp[i],temp[j]));
-					map_target[temp[i]][temp[j]] = 2;
+//					map_target[temp[i]][temp[j]] = 2;
 				} catch (IndexOutOfBoundsException e) {  // 예외3. hazard가 지도 범위를 벗어났을 때
 					System.out.println("target 좌표가 지도 사이즈를 벗어났습니다.");
 					return false;
@@ -169,20 +162,37 @@ public class MapManager {
 
 	}
 
+	public void Random_Spots() {	
+		int n, i, j;
+		Random RG = new Random();
+	
+		n = RG.nextInt(5);
+		while((n--)!=0) {
+			i = RG.nextInt(MapManager.map_size[0]);
+			j = RG.nextInt(MapManager.map_size[1]);
+			if(MapManager.map_hazard[i][j]==-1) {
+				MapManager.map_hazard[i][j]=1;
+			}
+		}
+		
+		n = RG.nextInt(10);	
+		while((n--)!=0) {
+			i = RG.nextInt(MapManager.map_size[0]);
+			j = RG.nextInt(MapManager.map_size[1]);
+			if(MapManager.map_hazard[i][j]==-1) {
+				MapManager.map_hazard[i][j]=2;
+			}
+		}
+	}
+	
 	public void Create_Map() {
 		this.map = new Map(map_size[0], map_size[1]);
-		map.Lacked_Map = map_hazard.clone();
-		
-/*
-		System.out.println(map_size[0] +" "+map_size[1]);
-		int i, j;
-		for(i=0; i<map_size[0]; i++) {
-			for(j=0; j<map_size[1]; j++) {
-				System.out.printf("%d ",map.Lacked_Map[i][j]);
-			}
-			System.out.println("");
-		}	
-*/
+		this.Random_Spots();
+		Map.Lacked_Map = (int[][])map_hazard.clone();
+
 	}
+	
+	
 }
 
+//hazard 배열에 hazard랜덤, colorblob랜덤 넣으면 lack_map임
