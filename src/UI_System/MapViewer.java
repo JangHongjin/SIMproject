@@ -50,6 +50,7 @@ public class MapViewer extends JFrame {
    JPanel total=new JPanel();
    JPanel pnl_menu; 
    JButton btn_restart; 
+   JButton btn_finish;
    JButton btn_save; 
    JButton btn_load;
    
@@ -64,11 +65,6 @@ public class MapViewer extends JFrame {
       total.add(new MyPanel(), "Center"); 
       pnl_menu = new JPanel(); 
       // 버튼들 추가 
-      btn_restart = new JButton("재시작"); 
-      pnl_menu.add(btn_restart); 
-      //재시작 버튼 사용시 건드리면 되는 부분 
-      btn_restart.addActionListener(new MyListener()); 
-      
       
       total.add(pnl_menu, "South"); 
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -100,12 +96,6 @@ public class MapViewer extends JFrame {
 	      add(total);
 	      total.add(new MyPanel(), "Center"); 
 	      pnl_menu = new JPanel(); 
-	      // 버튼들 추가 
-	      btn_restart = new JButton("재시작"); 
-	      pnl_menu.add(btn_restart); 
-	      //재시작 버튼 사용시 건드리면 되는 부분 
-	      btn_restart.addActionListener(new MyListener()); 
-	      
 	      
 	      total.add(pnl_menu, "South"); 
 	      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -162,7 +152,6 @@ public void finishUpdateMap(MapManager mm){
 	      pnl_menu = new JPanel(); 
 	      // 버튼들 추가 
 	      btn_restart = new JButton("재시작");
-	      
 	      pnl_menu.add(btn_restart); 
 	      //재시작 버튼 사용시 건드리면 되는 부분 
 	      btn_restart.addActionListener(new MyListener()); 

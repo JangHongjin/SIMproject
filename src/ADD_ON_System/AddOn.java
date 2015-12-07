@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import SIM_System.SIM;
 import UI_System.MainFrame;
 import UI_System.MapViewer;
@@ -74,14 +76,19 @@ public class AddOn {
     		}
     		
     		int currentDirection=mm.getDirection();		//현재로봇의 방향
-    		
+    		int [][] lacked_Map=mm.getLacked_map();
+    		int [][] real_Map=mm.getReal_map();
+    		ArrayList<Cell> robotPath=mm.getRobotPath();
+    		ArrayList<Cell> target=mm.getTarget();
     		//ASTAR알고리즘을 통한 다음 이동할 방향 
     		//동:0 서:1 남:2 북:3 경로X:4
-    		int nextDirection=AddOn.searchPath(mm.getLacked_map(), mm.getRobotPath(), mm.getTarget());
+    		int nextDirection=AddOn.searchPath(lacked_Map, robotPath, target);
     		
     		//경로가 존재하지 않는경우 반복분 종료
-    		if(nextDirection==4)
+    		if(nextDirection==4){
+    		    JOptionPane.showMessageDialog(null, "경로 X! 탐색종료!!");  
     			break;
+    		}
     		
     		
     		//다음이동방향에 맞게 로봇을 회전
@@ -90,17 +97,17 @@ public class AddOn {
     		
     		int[] colorblob=new int[4];
     		boolean result;
-    		colorblob=SIM.discvrColorBlobs(mm);
+    		colorblob=SIM.discvrColorBlobs(robotPath, lacked_Map, real_Map);
     		
-    		result=SIM.discvrHazards(mm, currentDirection);
+    		result=SIM.discvrHazards(robotPath, real_Map, currentDirection);
     		mm.updateMap(result, currentDirection, colorblob);
     		if(result==true)
     			continue;
     		else{
-    			SIM.moveForward(mm,currentDirection);
-    			result=SIM.positionSensor(mm);
+    			SIM.moveForward(robotPath,currentDirection);
+    			result=SIM.positionSensor(robotPath);
     			if(result==false)
-    				SIM.moveBack(mm);	
+    				SIM.moveBack(robotPath);	
     			}
     		try {
     			Thread.sleep(1000);

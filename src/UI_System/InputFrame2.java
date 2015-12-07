@@ -97,7 +97,7 @@ public class InputFrame2 extends JFrame {
    		pnl_menu.add(btn_haz); 
    		btn_target = new JButton("Add Target"); 
    		pnl_menu.add(btn_target); 
-   		btn_finish = new JButton("Add Finish");
+   		btn_finish = new JButton("Finish");
    		pnl_menu.add(btn_finish);
       
    		btn_start.addActionListener(new MyListener()); 
