@@ -82,6 +82,7 @@ public class AddOn {
     		ArrayList<Cell> target=mm.getTarget();
     		//ASTAR알고리즘을 통한 다음 이동할 방향 
     		//동:0 서:1 남:2 북:3 경로X:4
+    		
     		int nextDirection=AddOn.searchPath(lacked_Map, robotPath, target);
     		
     		//경로가 존재하지 않는경우 반복분 종료
@@ -92,7 +93,8 @@ public class AddOn {
     		
     		
     		//다음이동방향에 맞게 로봇을 회전
-    		currentDirection=SIM.turnRight(currentDirection,nextDirection);
+    		if(currentDirection!=nextDirection)
+    			currentDirection=SIM.turnRight(currentDirection,nextDirection);
     		
     		
     		int[] colorblob=new int[4];
@@ -185,8 +187,8 @@ public class AddOn {
            for(int i=0; i<left_target.size(); i++){
         	   int tempx=robotPath.get(robotPath.size()-1).x;
         	   int tempy=robotPath.get(robotPath.size()-1).y;
-        	   if( Math.addExact((int)Math.pow((tempx-left_target.get(i).x),2),(int) Math.pow((tempy-left_target.get(i).y),2))<temp){
-        		   temp=Math.addExact((int)Math.pow((tempx-left_target.get(i).x),2),(int) Math.pow((tempy-left_target.get(i).y),2));
+        	   if( Math.abs(tempx-left_target.get(i).x)+Math.abs(tempy-left_target.get(i).y)<temp){
+        		   temp=Math.abs(tempx-left_target.get(i).x)+Math.abs(tempy-left_target.get(i).y);
         		   ex=left_target.get(i).x;
         		   ey=left_target.get(i).y;
         		   

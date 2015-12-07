@@ -84,7 +84,7 @@ public class MapManager {
 				}
 				boolean result=false;
 				for(j=0; j<map.target.size(); j++){
-					if(map.target.get(j).x==i&&map.target.get(j).y==a)
+					if((map.target.get(j).x==i&&map.target.get(j).y==a)||(map.robot_Path.get(0).x==i&&map.robot_Path.get(0).y==a))
 							result=true;
 				}
 				if(result==true)
